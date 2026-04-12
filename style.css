@@ -1830,7 +1830,7 @@ textarea {
         justify-content: center !important;
         gap: 8px !important;
         width: 100% !important;
-        margin-top: 5px !important;
+        margin-top: 40px !important;
     }
 
     .main-footer .app-button {
@@ -1845,7 +1845,7 @@ textarea {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        gap: 15px !important; 
+        gap: 5px !important; 
         height: auto !important;
     }
 
