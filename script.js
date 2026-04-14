@@ -95,19 +95,38 @@ function toggleMenu() {
 
     alert('Тут будет открываться мобильное меню');
 }
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-menu a');
 
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', function() {
-
-            navMenu.classList.toggle('active');
-            
-
-            menuToggle.classList.toggle('is-active');
-        });
+    // Функция переключения меню
+    function toggleMenu() {
+        navMenu.classList.toggle('active');
+        menuToggle.classList.toggle('is-active');
     }
+
+    // Клик по бургеру
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    // Закрытие при клике на ЛЮБУЮ ссылку в меню
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            menuToggle.classList.remove('is-active');
+        });
+    });
+
+    // Закрытие при клике в любое место экрана (вне меню)
+    document.addEventListener('click', (e) => {
+        if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+            navMenu.classList.remove('active');
+            menuToggle.classList.remove('is-active');
+        }
+    });
 });
 
 window.addEventListener('scroll', function() {
