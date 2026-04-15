@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-   
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -9,25 +9,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-   
+
     const form = document.getElementById('early-access-form');
     if(form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-           
+
             const btn = form.querySelector('.submit-btn');
             const originalText = btn.textContent;
-            
+
             btn.textContent = 'Sending...';
             btn.style.opacity = '0.7';
 
-           
+
             setTimeout(() => {
                 btn.textContent = 'Success! We will contact you.';
                 btn.style.backgroundColor = '#28a745';
                 form.reset();
-                
-               
+
+
                 setTimeout(() => {
                     btn.textContent = originalText;
                     btn.style.backgroundColor = '';
@@ -42,18 +42,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.news-grid');
     const prev = document.querySelector('.prev');
     const next = document.querySelector('.next');
-    
+    const cards = document.querySelectorAll('.news-card');
+
     let scrollAmount = 0;
 
     next.addEventListener('click', () => {
         const cardWidth = document.querySelector('.news-card').offsetWidth + 24;
-        scrollAmount += cardWidth;
+        const maxScroll = (cards.length - 1) * cardWidth;
+
+        if (scrollAmount >= maxScroll) {
+            scrollAmount = 0;
+        } else {
+            scrollAmount += cardWidth;
+        }
         grid.style.transform = `translateX(-${scrollAmount}px)`;
     });
 
     prev.addEventListener('click', () => {
         const cardWidth = document.querySelector('.news-card').offsetWidth + 24;
-        scrollAmount = Math.max(scrollAmount - cardWidth, 0);
+        const maxScroll = (cards.length - 1) * cardWidth;
+
+        if (scrollAmount <= 0) {
+            scrollAmount = maxScroll;
+        } else {
+            scrollAmount -= cardWidth;
+        }
         grid.style.transform = `translateX(-${scrollAmount}px)`;
     });
 
@@ -62,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-menu a');
     const sections = document.querySelectorAll('section');
 
-   
+
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             navLinks.forEach(l => l.classList.remove('active'));
@@ -70,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-   
+
     window.addEventListener('scroll', () => {
         let current = "";
         sections.forEach(section => {
